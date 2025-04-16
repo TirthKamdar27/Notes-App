@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Add/Update Note</title>
+        <style>
+            label {
+                font-weight: bold;
+            }
+            input, textarea {
+                margin-bottom: 10px;
+                width: 300px;
+                padding: 8px;
+            }
+            button {
+                padding: 8px 16px;
+            }
+            .error {
+                color: red;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 th:text="${note.id == null ? 'Add New' : 'Update'} + ' Note'"></h2>
+
+        <form th:action="@{/save}" th:object="${note}" method="post">
+            <input type="hidden" th:field="*{id}" />
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" /> <br>
+            <span th:if="${#fields.hasErrors('title')}" class="error" th:errors="*{title}">Title Error</span> <br>
+
+            <label for="content">Content:</label>
+            <textarea id="content" th:field="*{content}"></textarea> <br>
+            <span th:if="${#fields.hasErrors('content')}" class="error" th:errors="*{content}">Content Error</span> <br>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" th:field="*{category}" /> <br>
+            <span th:if="${#fields.hasErrors('category')}" class="error" th:errors="*{category}">Category Error</span> <br>
+
+            <button type="submit">Save</button>
+        </form>
+
+        <a href="/">Back to Notes</a>
+    </body>
+</html>
